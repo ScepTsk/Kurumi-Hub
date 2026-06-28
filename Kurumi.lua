@@ -839,6 +839,178 @@ while getgenv().Toggle and task.wait(1) do
    task.wait(0.5)
    firesignal(T.Activated)
 end
+     
+    end
+})
+
+local Toggle31 = Tab:Toggle({
+    Title = "Auto Open Durov",
+    Desc = "Case +1,500 TON Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Durov",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+      
+    end
+})
+
+local Toggle32 = Tab:Toggle({
+    Title = "Auto Open Sunny Day",
+    Desc = "Case +15,500 TON Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Sunny Day",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+
+end
+
+     
+    end
+})
+
+local Toggle33 = Tab:Toggle({
+    Title = "Auto Open REDO",
+    Desc = "Case +47,500 TON Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"REDO",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+
+end
+
+      
+    end
+})
+
+local Toggle34 = Tab:Toggle({
+    Title = "Auto Open Death Note",
+    Desc = "Case +79,750 TON Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Death Note",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+       
+    end
+})
+
+local Toggle35 = Tab:Toggle({
+    Title = "Auto Open Magnate",
+    Desc = "Case +500 Diamonds Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Magnate",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+    
+    end
+})
+
+local Toggle36 = Tab:Toggle({
+    Title = "Auto Open Cirque",
+    Desc = "Case +700 Diamonds Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Cirque",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+     
+    end
+})
+
+local Toggle37 = Tab:Toggle({
+    Title = "Auto Open The Boys",
+    Desc = "Case +1,500 Diamonds Cost",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"The Boys",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+
+end
+
+
         print("done Script" .. tostring(state))
     end
 })
