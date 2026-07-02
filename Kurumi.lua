@@ -31,7 +31,7 @@ local Tab = Window:Tab({
 WindUI:Popup({
     Title = "info Kurumi Hub",
     Icon = "info",
-    Content = "Telegram Channels: @XScepTskX @KurumiHub",
+    Content = "Telegram Channels: @KurumiHub",
     Buttons = {
         {
             Title = "Cancel",
@@ -48,7 +48,7 @@ WindUI:Popup({
 })
 
 Window:Tag({
-    Title = "v1.1.0",
+    Title = "v1.1.1",
     Icon = "scroll",
     Color = Color3.fromHex("#8B0000"),
     Radius = 0,
@@ -1032,7 +1032,30 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
 
 end
+   
+    end
+})
 
-        print("Toggle Activated" .. tostring(state))
+local Tab4 = Window:Tab({
+    Title = "Misc",
+    Icon = "shield-cog-corner",
+    Locked = false,
+})
+
+local Toggle = Tab4:Toggle({
+    Title = "Anti AFK",
+    Desc = "Good Functions",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+local Players = cloneref(game:GetService("Players"))
+local VirtualUser  = cloneref(game:GetService("VirtualUser")) Players.LocalPlayer.Idled:Connect(function() 
+               VirtualUser:CaptureController()
+               VirtualUser:ClickButton2(Vector2.new())
+end)
+
+        print("done Script" .. tostring(state))
     end
 })
