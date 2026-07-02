@@ -31,7 +31,7 @@ local Tab = Window:Tab({
 WindUI:Popup({
     Title = "info Kurumi Hub",
     Icon = "info",
-    Content = "Telegram Channels: @XScepTskX @KurumiHub",
+    Content = "Telegram Channels: @KurumiHub",
     Buttons = {
         {
             Title = "Cancel",
@@ -48,7 +48,7 @@ WindUI:Popup({
 })
 
 Window:Tag({
-    Title = "v1",
+    Title = "v2",
     Icon = "github",
     Color = Color3.fromHex("#FF0000"),
     Radius = 0,
