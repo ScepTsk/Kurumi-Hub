@@ -1,12 +1,27 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+WindUI:AddTheme({
+    Name = "Kurumi Hub",
+    
+    Accent = Color3.fromHex("#C10020"),
+    Background = Color3.fromHex("#000000"),
+    Outline = Color3.fromHex("#C10020"),
+    Text = Color3.fromHex("#FFFFFF"),
+    Placeholder = Color3.fromHex("#C10020"),
+    Button = Color3.fromHex("#000000"),
+    Icon = Color3.fromHex("#C10020"),
+})
+
 local Window = WindUI:CreateWindow({
-    Title = "Kurumi Hub (NFT Battle)",
+    Title = "Kurumi Hub (Nft Battle)",
     Icon = "By ScepTsk",
     Author = "By ScepTsk",
     Background = "rbxassetid://106761977506684",
 })
 
-Window:SetBackgroundImageTransparency(0.2)
+WindUI:SetTheme("Kurumi Hub")
+
+Window:SetBackgroundImageTransparency(0.5)
 
 Window:EditOpenButton({
     Title = "Kurumi Hub",
@@ -24,14 +39,14 @@ Window:EditOpenButton({
 
 local Tab = Window:Tab({
     Title = "Auto Farm Cases",
-    Icon = "house",
+    Icon = "bot",
     Locked = false,
 })
 
 WindUI:Popup({
     Title = "info Kurumi Hub",
     Icon = "info",
-    Content = "Telegram Channels: @KurumiHub",
+    Content = "Official Telegram Channel @KurumiHub",
     Buttons = {
         {
             Title = "Cancel",
@@ -48,11 +63,36 @@ WindUI:Popup({
 })
 
 Window:Tag({
-    Title = "v1.1.1",
-    Icon = "scroll",
-    Color = Color3.fromHex("#8B0000"),
-    Radius = 0,
+    Title = "v1.1.2",
+    Icon = "zap",
+    Color = Color3.fromHex("#C10020"),
+    Radius = 8,
 })
+
+local FpsTag = Window:Tag({
+    Title = "FPS: --",
+    Icon = "gauge",
+    Color = Color3.fromHex("#C10020"),
+    Radius = 8,
+})
+
+
+local RunService = game:GetService("RunService")
+local lastUpdate = 0
+
+RunService.RenderStepped:Connect(function(deltaTime)
+    lastUpdate = lastUpdate + deltaTime
+    if lastUpdate >= 0.5 then
+        lastUpdate = 0
+        local fps = math.round(1 / deltaTime)
+      
+        if FpsTag and FpsTag.SetTitle then
+            FpsTag:SetTitle("FPS: " .. fps)
+        elseif FpsTag and FpsTag.TextLabel then
+            FpsTag.TextLabel.Text = "FPS: " .. fps
+        end
+    end
+end)
 
 local Toggle = Tab:Toggle({
     Title = "Auto Open Beggar",
@@ -772,7 +812,7 @@ end
 
 local Tab3 = Window:Tab({
     Title = "Auto Upgrade",
-    Icon = "list",
+    Icon = "wrench",
     Locked = false,
 })
 
@@ -1044,7 +1084,7 @@ local Tab4 = Window:Tab({
 
 local Toggle = Tab4:Toggle({
     Title = "Anti AFK",
-    Desc = "Good Functions",
+    Desc = "No kick",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
