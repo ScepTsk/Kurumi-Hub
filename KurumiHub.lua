@@ -97,7 +97,7 @@ local FpsTag = Window:Tag({
     Radius = 8,
 })
 
--- [[[[[[[ НОВЫЙ ПРАВИЛЬНЫЙ FPS СЧЁТЧИК ]]]]]]]
+
 local Stats = cloneref(game:GetService("Stats"))
 local FrameRateManager = Stats and Stats:FindFirstChild("FrameRateManager")
 local RenderAverage = FrameRateManager and FrameRateManager:FindFirstChild("RenderAverage")
