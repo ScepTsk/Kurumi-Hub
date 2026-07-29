@@ -1,36 +1,38 @@
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 WindUI:AddTheme({
-    Name = "Kurumi Hub",
+    Name = "Kami Hub",
     
-    Accent = Color3.fromHex("#C10020"),
+    Accent = Color3.fromHex("#B2BEB5"),
     Background = Color3.fromHex("#000000"),
-    Outline = Color3.fromHex("#C10020"),
+    Outline = Color3.fromHex("#FFC5D3"),
     Text = Color3.fromHex("#FFFFFF"),
-    Placeholder = Color3.fromHex("#C10020"),
-    Button = Color3.fromHex("#000000"),
-    Icon = Color3.fromHex("#C10020"),
+    Placeholder = Color3.fromHex("#FFB6C1"),
+    Button = Color3.fromHex("#FFC5D3"),
+    Icon = Color3.fromHex("#B2BEB5"),
 })
 
 local Window = WindUI:CreateWindow({
-    Title = "Kurumi Hub (Nft Battle)",
-    Icon = "By ScepTsk",
-    Author = "By ScepTsk",
-    Background = "rbxassetid://106761977506684",
+    Title = "Kami Hub — Nft Battle",
+    Icon = "rbxassetid://74013674609580",
+    IconSize = 40, 
+    Author = "By @ScepTsk",
+    Background = "rbxassetid://72825188101110",
 })
 
-WindUI:SetTheme("Kurumi Hub")
+WindUI:SetTheme("Kami Hub")
 
-Window:SetBackgroundImageTransparency(0.5)
+Window:SetBackgroundImageTransparency(0.4)
 
 Window:EditOpenButton({
-    Title = "Kurumi Hub",
-    Icon = "monitor-smartphone",
+    Title = "Kami Hub",
+    Icon = "rbxassetid://124904217784740",
     CornerRadius = UDim.new(0,16),
     StrokeThickness = 2,
     Color = ColorSequence.new(
-        Color3.fromHex("C10020"), 
-        Color3.fromHex("C19552")
+        Color3.fromHex("#FADADD"), 
+        Color3.fromHex("#FFB6C1")
     ),
     OnlyMobile = false,
     Enabled = true,
@@ -38,65 +40,75 @@ Window:EditOpenButton({
 })
 
 local Tab = Window:Tab({
-    Title = "Auto Farm Cases",
+    Title = "Auto Open Cases",
     Icon = "bot",
     Locked = false,
 })
 
-WindUI:Popup({
-    Title = "info Kurumi Hub",
-    Icon = "info",
-    Content = "Official Telegram Channel @KurumiHub",
-    Buttons = {
-        {
-            Title = "Cancel",
-            Callback = function() end,
-            Variant = "Tertiary",
-        },
-        {
-            Title = "Ok",
-            Icon = "arrow-right",
-            Callback = function() end,
-            Variant = "Primary",
-        }
-    }
+local Tab2 = Window:Tab({
+    Title = "Upgrades & Sell",
+    Icon = "wrench",
+    Locked = false,
 })
 
-Window:Tag({
-    Title = "v1.1.2",
-    Icon = "zap",
-    Color = Color3.fromHex("#C10020"),
-    Radius = 8,
+local Tab3 = Window:Tab({
+    Title = "Farm SUMMER Event",
+    Icon = "sun",
+    Locked = false,
+})
+
+local Tab4 = Window:Tab({
+    Title = "Settings",
+    Icon = "settings",
+    Locked = false,
+})
+
+Window:Divider()
+Tab:Divider()
+
+local Tab5 = Window:Tab({
+    Title = "information",
+    Icon = "info",
+    Locked = false,
+})
+
+local AutomaticSection = Tab:Section({
+    Title = "Farm MIX CASES",
+    Icon = "sparkles",
+    Opened = true,
 })
 
 local FpsTag = Window:Tag({
     Title = "FPS: --",
     Icon = "gauge",
-    Color = Color3.fromHex("#C10020"),
+    Color = Color3.fromHex("#FFC5D3"),
     Radius = 8,
 })
 
+local Stats = cloneref(game:GetService("Stats"))
+local FrameRateManager = Stats and Stats:FindFirstChild("FrameRateManager")
+local RenderAverage = FrameRateManager and FrameRateManager:FindFirstChild("RenderAverage")
 
-local RunService = game:GetService("RunService")
-local lastUpdate = 0
-
-RunService.RenderStepped:Connect(function(deltaTime)
-    lastUpdate = lastUpdate + deltaTime
-    if lastUpdate >= 0.5 then
-        lastUpdate = 0
-        local fps = math.round(1 / deltaTime)
-      
-        if FpsTag and FpsTag.SetTitle then
-            FpsTag:SetTitle("FPS: " .. fps)
-        elseif FpsTag and FpsTag.TextLabel then
-            FpsTag.TextLabel.Text = "FPS: " .. fps
+task.spawn(function()
+    while task.wait(1) do
+        if RenderAverage and FpsTag then
+            local fps = math.floor(1000 / RenderAverage:GetValue())
+            if FpsTag.SetTitle then
+                FpsTag:SetTitle("FPS: " .. fps)
+            end
         end
     end
 end)
 
-local Toggle = Tab:Toggle({
-    Title = "Auto Open Beggar",
-    Desc = "Case +220 Stars Cost",
+Window:Tag({
+    Title = "v1.2.0",
+    Icon = "zap",
+    Color = Color3.fromHex("#FFC5D3"),
+    Radius = 8,
+})
+
+local ToggleBeggar = Tab:Toggle({
+    Title = "Open Beggar",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -117,9 +129,8 @@ end
     end
 })
 
-local Toggle2 = Tab:Toggle({
-    Title = "Auto Open Plodder",
-    Desc = "Case +440 Stars Cost",
+local TogglePlodder = Tab:Toggle({
+    Title = "Open Plodder",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -140,9 +151,8 @@ end
     end
 })
 
-local Toggle3 = Tab:Toggle({
-    Title = "Auto Open Office Clerk",
-    Desc = "Case +689 Stars Cost",
+local ToggleOfficeClerk = Tab:Toggle({
+    Title = "Open Office Clerk",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -162,9 +172,8 @@ end
     end
 })
 
-local Toggle4 = Tab:Toggle({
-    Title = "Auto Open Manager",
-    Desc = "Case +835 Stars Cost",
+local ToggleManager = Tab:Toggle({
+    Title = "Open Manager",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -185,14 +194,13 @@ end
     end
 })
 
-local Toggle5 = Tab:Toggle({
-    Title = "Auto Open Director",
-    Desc = "Case +926 Stars Cost",
+local ToggleDirector = Tab:Toggle({
+    Title = "Open Director",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
-     getgenv().Toggle = state
+     getgenv().Director = state
 while getgenv().Toggle and task.wait(2) do
 local args = {
 	"Director",
@@ -207,9 +215,8 @@ end
     end
 })
 
-local Toggle6 = Tab:Toggle({
-    Title = "Auto Open Oligarch",
-    Desc = "Case +1,364 Stars Cost",
+local ToggleOligarch = Tab:Toggle({
+    Title = "Open Oligarch",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -229,9 +236,14 @@ end
     end
 })
 
-local Toggle7 = Tab:Toggle({
-    Title = "Auto Open Frozen Heart",
-    Desc = "Case +4,500 Stars Cost",
+local AutomaticSection = Tab:Section({
+    Title = "Farm SPECIAL CASES",
+    Icon = "flame",
+    Opened = true,
+})
+
+local ToggleFrozenHeart = Tab:Toggle({
+    Title = "Open Frozen Heart",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -252,14 +264,13 @@ end
     end
 })
 
-local Toggle8 = Tab:Toggle({
-    Title = "Auto Open Bubble Gum",
-    Desc = "Case +12,000 Stars Cost",
+local ToggleBubbleGum = Tab:Toggle({
+    Title = "Open Bubble Gum",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
-     getgenv().Toggle = state
+     getgenv().Toggle  = state
 while getgenv().Toggle and task.wait(2) do
 local args = {
 	"Bubble Gum",
@@ -274,9 +285,8 @@ end
     end
 })
 
-local Toggle9 = Tab:Toggle({
-    Title = "Auto Open Cats",
-    Desc = "Case +40,000 Stars Cost",
+local ToggleCats = Tab:Toggle({
+    Title = "Open Cats",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -297,9 +307,8 @@ end
     end
 })
 
-local Toggle10 = Tab:Toggle({
-    Title = "Auto Open Clitch",
-    Desc = "Case +135,000 Stars Cost",
+local ToggleClitch = Tab:Toggle({
+    Title = "Open Clitch",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -320,9 +329,8 @@ end
     end
 })
 
-local Toggle11 = Tab:Toggle({
-    Title = "Auto Open Dream",
-    Desc = "Case +250,000 Stars Cost",
+local ToggleDream = Tab:Toggle({
+    Title = "Open Dream",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -343,9 +351,8 @@ end
     end
 })
 
-local Toggle12 = Tab:Toggle({
-    Title = "Auto Open Bloody Night",
-    Desc = "Case +5,000,000 Stars Cost",
+local ToggleBloodyNight = Tab:Toggle({
+    Title = "Open Bloody Night",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -366,55 +373,8 @@ end
     end
 })
 
-local Toggle13 = Tab:Toggle({
-    Title = "Auto Open Ninja Turtles",
-    Desc = "Case +10,000,000 Stars Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-     getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"Ninja Turtles",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
-     
-    end
-})
-
-local Toggle14 = Tab:Toggle({
-    Title = "Auto Open Desk Calendars",
-    Desc = "Case +44,000,000 Stars Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-     getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"Desk Calendars",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
-    
-    end
-})
-
-local Toggle15 = Tab:Toggle({
-    Title = "Auto Open Dio",
-    Desc = "Case +577,777,777 Stars Cost",
+local ToggleDio = Tab:Toggle({
+    Title = "Open Dio",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -435,9 +395,36 @@ end
     end
 })
 
-local Toggle16 = Tab:Toggle({
-    Title = "Auto Open M5 F90",
-    Desc = "Case +55,555 Stars Cost",
+local ToggleTSUM = Tab:Toggle({
+    Title = "Open TSUM",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"TSUM",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+   
+    end
+})
+
+local AutomaticSection = Tab:Section({
+    Title = "Farm CARS CASES",
+    Icon = "moon-star",
+    Opened = true,
+})
+
+local ToggleM5F90 = Tab:Toggle({
+    Title = "Open M5 F90",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -458,9 +445,8 @@ end
     end
 })
 
-local Toggle17 = Tab:Toggle({
-    Title = "Auto Open G63",
-    Desc = "Case +177,777 Stars Cost",
+local ToggleG63 = Tab:Toggle({
+    Title = "Open G63",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -481,9 +467,8 @@ end
     end
 })
 
-local Toggle18 = Tab:Toggle({
-    Title = "Auto Open Porsche 911",
-    Desc = "Case +599,999 Stars Cost",
+local TogglePorsche911 = Tab:Toggle({
+    Title = "Open Porsche 911",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -504,9 +489,8 @@ end
     end
 })
 
-local Toggle19 = Tab:Toggle({
-    Title = "Auto Open URUS",
-    Desc = "Case +1,666,666 Stars Cost",
+local ToggleURUS = Tab:Toggle({
+    Title = "Open URUS",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -527,9 +511,8 @@ end
     end
 })
 
-local Toggle20 = Tab:Toggle({
-    Title = "Auto Open Cyber",
-    Desc = "Case +13,444,222 Stars Cost",
+local ToggleCyber = Tab:Toggle({
+    Title = "Open Cyber",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -550,9 +533,14 @@ end
     end
 })
 
-local Toggle21 = Tab:Toggle({
-    Title = "Auto Open Gold",
-    Desc = "Case +1,999 Stars Cost",
+local AutomaticSection = Tab:Section({
+    Title = "Farm NFT CASES",
+    Icon = "zap",
+    Opened = true,
+})
+
+local ToggleGold = Tab:Toggle({
+    Title = "Open Gold",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -573,9 +561,8 @@ end
     end
 })
 
-local Toggle22 = Tab:Toggle({
-    Title = "Auto Open Dark",
-    Desc = "Case +4,999 Stars Cost",
+local ToggleDark = Tab:Toggle({
+    Title = "Open Dark",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -596,9 +583,8 @@ end
     end
 })
 
-local Toggle23 = Tab:Toggle({
-    Title = "Auto Open Palm",
-    Desc = "Case +13,999 Stars Cost",
+local TogglePalm = Tab:Toggle({
+    Title = "Open Palm",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -619,9 +605,8 @@ end
     end
 })
 
-local Toggle24 = Tab:Toggle({
-    Title = "Auto Open Burj",
-    Desc = "Case +37,999 Stars Cost",
+local ToggleBurj = Tab:Toggle({
+    Title = "Open Burj",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -642,9 +627,8 @@ end
     end
 })
 
-local Toggle25 = Tab:Toggle({
-    Title = "Auto Open Luxury",
-    Desc = "Case +119,999 Stars Cost",
+local ToggleLuxury = Tab:Toggle({
+    Title = "Open Luxury",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -665,15 +649,14 @@ end
     end
 })
 
-local Toggle26 = Tab:Toggle({
-    Title = "Auto Open Monarch",
-    Desc = "Case +12,999,999 Stars Cost",
+local ToggleMonarch = Tab:Toggle({
+    Title = "Open Monarch",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
 
-getgenv().Toggle27 = state
+getgenv().Toggle = state
 while getgenv().Toggle and task.wait(2) do
 
 local args = {
@@ -689,9 +672,8 @@ end
     end
 })
 
-local Toggle28 = Tab:Toggle({
-    Title = "Auto Open Radioactive",
-    Desc = "Case +24,999,999 Stars Cost",
+local ToggleRadioactive = Tab:Toggle({
+    Title = "Open Radioactive",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -712,9 +694,8 @@ end
     end
 })
 
-local Toggle29 = Tab:Toggle({
-    Title = "Auto Open Angel",
-    Desc = "Case +33,333,333 Stars Cost",
+local ToggleAngel = Tab:Toggle({
+    Title = "Open Angel",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -735,9 +716,14 @@ end
     end
 })
 
-local Toggle30 = Tab:Toggle({
-    Title = "Auto Open Thash",
-    Desc = "Free Case",
+local AutomaticSection = Tab:Section({
+    Title = "Farm FREE CASES",
+    Icon = "snowflake",
+    Opened = true,
+})
+
+local ToggleThash = Tab:Toggle({
+    Title = "Open Thash",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -758,9 +744,8 @@ end
     end
 })
 
-local Toggle31 = Tab:Toggle({
-    Title = "Auto Open Daily",
-    Desc = "Free Case",
+local ToggleDaily = Tab:Toggle({
+    Title = "Open Daily",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
@@ -781,53 +766,28 @@ end
     end
 })
 
-local Tab2 = Window:Tab({
-    Title = "Auto Sell",
-    Icon = "dollar-sign",
-    Locked = false,
+local AutomaticSection = Tab:Section({
+    Title = "Farm CURRENCY CASES",
+    Icon = "dna",
+    Opened = true,
 })
 
-local Toggle2 = Tab2:Toggle({
-    Title = "Auto Sell NFT",
-    Desc = "All NFT",
+local ToggleDurov = Tab:Toggle({
+    Title = "Open Durov",
     Icon = "play",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
+
 getgenv().Toggle = state
 while getgenv().Toggle and task.wait(2) do
 
 local args = {
-	"Sell",
-	"ALL",
-	false
+	"Durov",
+	10,
+	{}
 }
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Inventory"):FireServer(unpack(args))
-
-end
-
-    
-    end
-})
-
-local Tab3 = Window:Tab({
-    Title = "Auto Upgrade",
-    Icon = "wrench",
-    Locked = false,
-})
-
-local Toggle3 = Tab3:Toggle({
-    Title = "Upgrade Nft",
-    Desc = "the script only clicks on the Upgrade button (and you have to choose the nft yourself)",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-firesignal(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pages.Upgrade.MainFrame.Open.Activated)
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
 
 end
 
@@ -835,10 +795,309 @@ end
     end
 })
 
-local Toggle4 = Tab3:Toggle({
-    Title = "Upgrade Nft",
-    Desc = "All Nft",
+local ToggleSunnyDay = Tab:Toggle({
+    Title = "Open Sunny Day",
     Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Sunny Day",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+     
+    end
+})
+
+local ToggleREDO = Tab:Toggle({
+    Title = "Open REDO",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"REDO",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+     
+    end
+})
+
+local ToggleDeathNote = Tab:Toggle({
+    Title = "Open Death Note",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Death Note",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+     
+    end
+})
+
+local ToggleMagnate = Tab:Toggle({
+    Title = "Open Magnate",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+
+local args = {
+	"Magnate",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+     
+    end
+})
+
+
+local ToggleCirque = Tab:Toggle({
+    Title = "Open Cirque",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"Cirque",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+    
+    end
+})
+
+local ToggleBlueEyes = Tab:Toggle({
+    Title = "Open Blue Eyes",
+    Icon = "bird",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+ 
+ getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Blue Eyes",
+    10,
+    {}
+)
+
+end
+ 
+    end
+})
+
+local ToggleTheBoys = Tab:Toggle({
+    Title = "Open The Boys",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+ 
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local args = {
+	"The Boys",
+	10,
+	{}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+
+end
+
+    
+    end
+})
+
+
+local ToggleButterfly = Tab:Toggle({
+    Title = "Open Butterfly",
+    Icon = "play",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+ 
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Butterfly",
+    10,
+    {}
+)
+
+       end 
+    end
+})
+
+local ToggleMineblox = Tab:Toggle({
+    Title = "Open Mineblox",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+ 
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Mineblox",
+    10,
+    {}
+)
+
+end
+
+    end
+})
+
+local AutomaticSection = Tab:Section({
+    Title = "Farm Limited Cases",
+    Icon = "snowflake",
+    Opened = true,
+})
+
+local Toggle = Tab:Toggle({
+    Title = "Open Tropical",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Tropical",
+    10,
+    {}
+)
+
+end
+       
+    end
+})
+
+local Toggle2 = Tab:Toggle({
+    Title = "Open Desert",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Desert",
+    10,
+    {}
+)
+
+end
+  
+    end
+})
+
+local Toggle3 = Tab:Toggle({
+    Title = "Open Blooming Sakura",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Blooming Sakura",
+    10,
+    {}
+)
+
+end 
+
+    end
+})
+
+local Toggle4 = Tab:Toggle({
+    Title = "Open Shark Bite",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+getgenv().Toggle = state
+while getgenv().Toggle and task.wait(2) do
+
+local Event = game:GetService("ReplicatedStorage").Events.OpenCase
+Event:InvokeServer(
+    "Shark Bite",
+    10,
+    {}
+)
+
+end
+
+    end
+})
+
+local ToggleUpgradeNFT = Tab2:Toggle({
+    Title = "Upgrade All NFT",
+    Icon = "zap",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
@@ -871,22 +1130,21 @@ local Third = Player.PlayerGui.MainGui.Pages.Upgrade.MainFrame.Open
 
 getgenv().Toggle = state
 while getgenv().Toggle and task.wait(1) do
+     
    local F = FindLowObj(First).Parent.Button
    local S = FindLowObj(Second).Parent.Button
    local T = Third
    firesignal(F.Activated)
-   firesignal(S.Activated)
-   task.wait(0.5)
+   firesignal(S.Activated) 
    firesignal(T.Activated)
 end
      
     end
 })
 
-local Toggle32 = Tab:Toggle({
-    Title = "Auto Open Durov",
-    Desc = "Case +1,500 TON Cost",
-    Icon = "play",
+local ToggleUpgradeSelectedNFT = Tab2:Toggle({
+    Title = "Upgrade Selected NFT",
+    Icon = "zap",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
@@ -894,12 +1152,7 @@ local Toggle32 = Tab:Toggle({
 getgenv().Toggle = state
 while getgenv().Toggle and task.wait(2) do
 
-local args = {
-	"Durov",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pages.Upgrade.MainFrame.Open.Activated)
 
 end
 
@@ -907,10 +1160,11 @@ end
     end
 })
 
-local Toggle33 = Tab:Toggle({
-    Title = "Auto Open Sunny Day",
-    Desc = "Case +15,000 TON Cost",
-    Icon = "play",
+Tab2:Divider()
+
+local ToggleAutoSellNFT = Tab2:Toggle({
+    Title = "Auto Sell All NFT",
+    Icon = "dollar-sign",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
@@ -919,183 +1173,187 @@ getgenv().Toggle = state
 while getgenv().Toggle and task.wait(2) do
 
 local args = {
-	"Sunny Day",
-	10,
-	{}
+	"Sell",
+	"ALL",
+	false
 }
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Inventory"):FireServer(unpack(args))
 
 end
-
-     
-    end
-})
-
-local Toggle34 = Tab:Toggle({
-    Title = "Auto Open REDO",
-    Desc = "Case +47,500 TON Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"REDO",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
-     
-    end
-})
-
-local Toggle35 = Tab:Toggle({
-    Title = "Auto Open Death Note",
-    Desc = "Case +79,750 TON Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"Death Note",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
-     
-    end
-})
-
-local Toggle36 = Tab:Toggle({
-    Title = "Auto Open Magnate",
-    Desc = "Case +500 Diamonds Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-
-local args = {
-	"Magnate",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
-     
-    end
-})
-
-
-local Toggle37 = Tab:Toggle({
-    Title = "Auto Open Cirque",
-    Desc = "Case +700 Diamonds Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
-
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"Cirque",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-
     
     end
 })
 
-local Toggle38 = Tab:Toggle({
-    Title = "Auto Open The Boys",
-    Desc = "Case +1,500 Diamonds Cost",
-    Icon = "play",
+local Dropdown = Tab4:Dropdown({
+    Title = "Select Image",
+    Desc = "Background",
+    Values = { "Huohuo", "Huohuo 2" },
+    Value = "Huohuo",
+    Callback = function(option) 
+    
+if option == "Huohuo" then
+        Window:SetBackgroundImage("rbxassetid://72825188101110")
+
+elseif option == "Huohuo 2" then 
+      Window:SetBackgroundImage("rbxassetid://87751178476615")
+end     
+
+       print("Background selected: " .. option) 
+    end
+})
+
+local Toggle1 = Tab3:Toggle({
+    Title = "Auto Claim Currency",
+    Icon = "zap",
+    Type = "Checkbox",
+    Value = false,
+    Callback = function(state) 
+
+if state then
+
+        pcall(function()
+        firesignal(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pages.Summer.MainFrame.Content.Claim.Activated)
+        
+     end)
+end     
+
+getgenv().ToggleAutoClaimCurrency = state
+while getgenv().Toggle and task.wait(61) do
+
+pcall(function()
+    firesignal(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pages.Summer.MainFrame.Content.Claim.Activated)
+
+
+         end)
+     end  
+  end
+}) 
+
+     
+local Toggle2 = Tab3:Toggle({
+    Title = "Auto Spin",
+    Icon = "zap",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
  
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
+getgenv().Toggle = state 
 
-local args = {
-	"The Boys",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
+if state then
+   pcall(function()
+   local Event = game:GetService("ReplicatedStorage").Events.Summer
+Event:InvokeServer(
+    "Spin"
+)
 
+      end)
 end
 
-    
-    end
+while getgenv().Toggle and task.wait(10800) do
+   pcall(function()
+local Event = game:GetService("ReplicatedStorage").Events.Summer
+Event:InvokeServer(
+    "Spin"
+)
+
+              end)
+         end
+   end 
 })
 
-local Toggle39 = Tab:Toggle({
-    Title = "Auto Open TSUM",
-    Desc = "Case +999,999,999 Stars Cost",
-    Icon = "play",
-    Type = "Checkbox",
-    Value = false,
-    Callback = function(state) 
+local AntiAFKConnection = nil
 
-getgenv().Toggle = state
-while getgenv().Toggle and task.wait(2) do
-
-local args = {
-	"TSUM",
-	10,
-	{}
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("OpenCase"):InvokeServer(unpack(args))
-
-end
-   
-    end
-})
-
-local Tab4 = Window:Tab({
-    Title = "Misc",
-    Icon = "shield-cog-corner",
-    Locked = false,
-})
-
-local Toggle = Tab4:Toggle({
-    Title = "Anti AFK",
-    Desc = "No kick",
-    Icon = "play",
+local ToggleAntiAFK = Tab4:Toggle({
+    Title = "AntiAFK",
+    Icon = "zap",
     Type = "Checkbox",
     Value = false,
     Callback = function(state) 
 
 local Players = cloneref(game:GetService("Players"))
-local VirtualUser  = cloneref(game:GetService("VirtualUser")) Players.LocalPlayer.Idled:Connect(function() 
+local VirtualUser  = cloneref(game:GetService("VirtualUser"))
+local player = game.player.LocalPlayer
+               
+if state then
+                   if not AntiAFKConnection then
+     AntiAFKConnection = LocalPlayer.Idled:Connect(function()     
                VirtualUser:CaptureController()
                VirtualUser:ClickButton2(Vector2.new())
-end)
+           end)    
+     end
+else      
 
-        print("done Script" .. tostring(state))
-    end
+      if AntiAFKConnection then
+    AntiAFKConnection:Disconnect()
+    AntiAFKConnection = nil
+
+          end 
+      end 
+end 
+})
+
+local InfoSection = Tab5:Section({
+    Title = "Kami Hub Official Socials",
+    Icon = "link",
+    Opened = true,
+})
+
+local Paragraph = InfoSection:Paragraph({
+    Title = "Telegram Channel: @KamiHub",
+    Desc = "Join For Updates and Support",
+    Color = Color3.fromRGB(0, 0, 0), 
+    Image = "rbxassetid://73337938036398",
+    ImageSize = 65,
+    Thumbnail = "",
+    ThumbnailSize = 250,
+    Locked = false,
+    Buttons = {
+        {
+            Icon = "link",
+            Title = "Copy Link",
+            Callback = function()
+                setclipboard("https://t.me/KamiHub")
+                print("Telegram Link Copied!")
+                
+                
+                WindUI:Notify({
+                    Title = "Link copied successfully!",
+                    Content = "link copied to clipboard",
+                    Duration = 2.5,
+                    Icon = "check",
+                })
+            end,       
+        }
+    }
+})
+
+InfoSection:Divider()
+
+local Paragraph2 = InfoSection:Paragraph({
+    Title = "Discord Server: @KamiHub",
+    Desc = "Join our Community for More",
+    Color = Color3.fromRGB(0, 0, 0),    
+    Image = "rbxassetid://117121115829028",
+    ImageSize = 65,
+    Thumbnail = "",
+    ThumbnailSize = 150,
+    Locked = false,
+    Buttons = {
+        {
+            Icon = "link",
+            Title = "Copy Link",
+            Callback = function()
+                setclipboard("https://discord.gg/jjwG4SA4ed")
+                print("Discord Link Copied!")
+                
+                
+                WindUI:Notify({
+                    Title = "Link copied successfully!",
+                    Content = "link copied to clipboard",
+                    Duration = 2.5,
+                    Icon = "check",
+                })
+            end,
+        }
+    }
 })
